@@ -13,14 +13,12 @@ setInterval(async function () {
   console.log(targetTime);
   await Data.deleteMany({ createdAt: { $lt: targetTime } });
 
-  const opendata = await axios.get(
-    'https://opendata.hopefully.works/api/events',
-    config.TOKEN
-  );
+  const opendata = await axios.get(config.openDataURL, config.TOKEN);
   const { data } = opendata;
   const newData = new Data(data);
+  await newData.save();
   console.log(data);
-}, 180000);
+}, 1800000);
 
 dataRouter.get('/', async (_req, res) => {
   const data = await Data.find({});

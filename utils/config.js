@@ -1,10 +1,9 @@
 require('dotenv').config();
 
+const openDataURL = 'https://opendata.hopefully.works/api/events';
+
 let MONGODB_URI = process.env.MONGODB_URI;
 
-if (process.env.NODE_ENV === 'test') {
-  MONGODB_URI = process.env.TEST_MONGODB_URI;
-}
 let PORT = process.env.PORT;
 
 const tokenFromEnv = process.env.TOKEN;
@@ -16,4 +15,5 @@ module.exports = {
   MONGODB_URI,
   PORT,
   TOKEN,
+  openDataURL,
 };
