@@ -7,7 +7,13 @@ if (process.env.NODE_ENV === 'test') {
 }
 let PORT = process.env.PORT;
 
+const tokenFromEnv = process.env.TOKEN;
+const TOKEN = {
+  headers: { Authorization: `bearer ${tokenFromEnv}` },
+};
+
 module.exports = {
   MONGODB_URI,
   PORT,
+  TOKEN,
 };
