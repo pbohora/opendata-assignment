@@ -1,39 +1,29 @@
 require('dotenv').config();
 const dataRouter = require('express').Router();
 
-const axios = require('axios');
-
-const config = require('../utils/config');
-
-const Data = require('../Models/data');
+const service = require('../services/opendata');
 
 setInterval(async function () {
   var targetTime = new Date();
   targetTime.setHours(targetTime.getHours() - 1);
   console.log(targetTime);
-  await Data.deleteMany({ createdAt: { $lt: targetTime } });
 
-  const opendata = await axios.get(config.openDataURL, config.TOKEN);
-  const { data } = opendata;
-  const newData = new Data(data);
-  await newData.save();
-  console.log(data);
-}, 1800000);
+  try {
+    await service.deleteOldData(targetTime);
+
+    await service.storeOpenData();
+  } catch (error) {
+    console.log(error);
+  }
+}, 100000);
 
 dataRouter.get('/', async (_req, res) => {
-  const data = await Data.find({});
-  res.json(data);
+  try {
+    const data = await servive.getHistoryData();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
-
-// dataRouter.post('/', async (req, _res) => {
-//   try {
-//     const { date, sensor1, sensor2, sensor3, sensor4 } = req.body;
-
-//     const newData = new Data({ date, sensor1, sensor2, sensor3, sensor4 });
-//     await newData.save();
-//   } catch (exception) {
-//     next(exception);
-//   }
-// });
 
 module.exports = dataRouter;
