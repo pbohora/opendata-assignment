@@ -2,20 +2,22 @@ const dataRouter = require('express').Router();
 
 const service = require('../services/opendata');
 
-setInterval(async function () {
+//fetch data from API in every hour and
+//store that data to mongodb and delete old data
+setInterval(async () => {
   var targetTime = new Date();
-  targetTime.setHours(targetTime.getHours() - 1);
-  console.log(targetTime);
+  targetTime.setHours(targetTime.getHours() - 24);
 
   try {
-    await service.deleteOldData(targetTime);
+    await service.deleteOldData(targetTime); //delete old data from database
 
     await service.storeOpenData();
   } catch (error) {
     console.log(error);
   }
-}, 10000000);
+}, 3600000);
 
+//get saved history data from database
 dataRouter.get('/', async (_req, res) => {
   try {
     const data = await service.getHistoryData();
