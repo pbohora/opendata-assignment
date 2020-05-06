@@ -1,10 +1,30 @@
-require('dotenv').config();
 const dataRouter = require('express').Router();
-const request = require('request');
-const token = process.env.TOKEN;
 
-dataRouter.get('/', (req, res) => {
-  res.send('Hello data');
+const service = require('../services/opendata');
+
+//fetch data from API in every hour and
+//store that data to mongodb and delete old data
+setInterval(async () => {
+  var targetTime = new Date();
+  targetTime.setHours(targetTime.getHours() - 24);
+
+  try {
+    await service.deleteOldData(targetTime); //delete old data from database
+
+    await service.storeOpenData();
+  } catch (error) {
+    console.log(error);
+  }
+}, 3600000);
+
+//get saved history data from database
+dataRouter.get('/', async (_req, res) => {
+  try {
+    const data = await service.getHistoryData();
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
 
 module.exports = dataRouter;
