@@ -1,4 +1,3 @@
-require('dotenv').config();
 const dataRouter = require('express').Router();
 
 const service = require('../services/opendata');
@@ -15,11 +14,11 @@ setInterval(async function () {
   } catch (error) {
     console.log(error);
   }
-}, 100000);
+}, 10000000);
 
 dataRouter.get('/', async (_req, res) => {
   try {
-    const data = await servive.getHistoryData();
+    const data = await service.getHistoryData();
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json({ error });
