@@ -12,7 +12,7 @@ import {
 
 import './Bar.css';
 
-const Bar = ({ data1, data2, data3, data4 }) => {
+const Bar = ({ data }) => {
   return (
     <div className='bar_container'>
       <XYPlot xType='ordinal' width={800} height={500} xDistance={10}>
@@ -41,12 +41,10 @@ const Bar = ({ data1, data2, data3, data4 }) => {
         <HorizontalGridLines />
         <XAxis />
         <YAxis />
-        <VerticalBarSeries
-          className='vertical-bar-series-example'
-          data={data2}
-        />
-        <VerticalBarSeries data={data3} />
-        <VerticalBarSeries data={data4} />
+        <VerticalBarSeries data={data('sensor1')} />
+        <VerticalBarSeries data={data('sensor2')} />
+        <VerticalBarSeries data={data('sensor3')} />
+        <VerticalBarSeries data={data('sensor4')} />
       </XYPlot>
     </div>
   );

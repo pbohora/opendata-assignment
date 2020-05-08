@@ -10,9 +10,8 @@ import {
 } from 'react-vis';
 
 import './Chart.css';
-import chartLabel from 'react-vis/dist/plot/chart-label';
 
-const Chart = ({ datas, onMouseLeave, color, sensor }) => {
+const Chart = ({ datas, color, sensor }) => {
   return (
     <div className='chart_container'>
       <DiscreteColorLegend
@@ -26,13 +25,8 @@ const Chart = ({ datas, onMouseLeave, color, sensor }) => {
           ,
         ]}
       />
-      <XYPlot
-        onMouseLeave={onMouseLeave}
-        xType='ordinal'
-        width={400}
-        height={300}
-      >
-        <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
+      <XYPlot xType='ordinal' width={600} height={300}>
+        <HorizontalGridLines />
         <XAxis title='Time' />
         <YAxis title='Sensor reading' />
         <LineMarkSeries
