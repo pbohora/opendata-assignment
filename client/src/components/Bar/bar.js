@@ -10,10 +10,12 @@ import {
   VerticalBarSeries,
 } from 'react-vis';
 
+import './Bar.css';
+
 const Bar = ({ data1, data2, data3, data4 }) => {
   return (
-    <div style={{ backgroundColor: '#211f1c' }}>
-      <XYPlot xType='ordinal' width={1100} height={500} xDistance={10}>
+    <div className='bar_container'>
+      <XYPlot xType='ordinal' width={800} height={500} xDistance={10}>
         <DiscreteColorLegend
           style={{ position: 'absolute', right: '0px', top: '10px' }}
           orientation='vertical'

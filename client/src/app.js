@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { getOpenData } from './services/opendata';
 
-import Chart from './components/chart';
-import Bar from './components/bar';
+import LineChart from './components/LineCharts';
+import Bar from './components/Bar/bar';
+import Header from './components/Header';
 import './app.css';
 
 const App = () => {
   const [openData, setOpenData] = useState([]);
-  // const [crosshairValues, setCrosshairValues] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date().getDate());
 
   useEffect(() => {
     getOpenData().then((data) => {
@@ -16,68 +17,46 @@ const App = () => {
     });
   }, []);
 
-  const dataArr = openData.map((data) => {
-    return { x: new Date(data.createdAt).getHours(), y: data.sensor1 };
+  const filteredData = openData.filter((data) => {
+    const date = new Date(data.createdAt).getDate();
+    console.log('date', typeof date);
+    return date === selectedDate;
+  });
+  console.log('fil', filteredData);
+
+  const handleDate = (e) => {
+    setSelectedDate(Number(e.target.value));
+  };
+  console.log('sec', typeof selectedDate);
+
+  const dataArr = filteredData.map((data) => {
+    return {
+      x: new Date(data.createdAt).getHours(),
+      y: data.sensor1 ? data.sensor1 : 0,
+    };
   });
   console.log(dataArr);
-  const dataArr2 = openData.map((data) => {
+  const dataArr2 = filteredData.map((data) => {
     return { x: new Date(data.createdAt).getHours(), y: data.sensor2 };
   });
 
-  const dataArr3 = openData.map((data) => {
+  const dataArr3 = filteredData.map((data) => {
     return { x: new Date(data.createdAt).getHours(), y: data.sensor3 };
   });
-  const dataArr4 = openData.map((data) => {
+  const dataArr4 = filteredData.map((data) => {
     return { x: new Date(data.createdAt).getHours(), y: data.sensor4 };
   });
 
-  // const onMouseLeave = () => setCrosshairValues(null);
-
-  // const onNearestX = (value, { index }) => {
-  //   console.log('ind', value);
-  //   return setCrosshairValues([crosshairValues, value]);
-  // };
-  // crosshairValues && console.log('cross', crosshairValues.x);
-
   return (
     <div className='App'>
+      <Header handleDate={handleDate} selectedDate={selectedDate} />
+      <LineChart
+        data1={dataArr}
+        data2={dataArr2}
+        data3={dataArr3}
+        data4={dataArr4}
+      />
       <Bar data1={dataArr} data2={dataArr2} data3={dataArr3} data4={dataArr4} />
-
-      <Chart
-        datas={dataArr}
-        color='violet'
-        sensor='senso41'
-        // onMouseLeave={onMouseLeave}
-        // onNearestX={onNearestX}
-        // crosshairValues={crosshairValues}
-      />
-
-      <Chart
-        datas={dataArr2}
-        color='green'
-        sensor='senso2'
-        // onMouseLeave={onMouseLeave}
-        // onNearestX={onNearestX}
-        // crosshairValues={crosshairValues}
-      />
-
-      <Chart
-        datas={dataArr3}
-        color='blue'
-        sensor='sensor3'
-        // onMouseLeave={onMouseLeave}
-        // onNearestX={onNearestX}
-        // crosshairValues={crosshairValues}
-      />
-
-      <Chart
-        datas={dataArr4}
-        color='yellow'
-        sensor='senso4'
-        // onMouseLeave={onMouseLeave}
-        // onNearestX={onNearestX}
-        // crosshairValues={crosshairValues}
-      />
     </div>
   );
 };
