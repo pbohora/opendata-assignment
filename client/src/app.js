@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getOpenData } from './services/opendata';
 
-import '../node_modules/react-vis/dist/style.css';
-import {
-  XYPlot,
-  LineSeries,
-  VerticalGridLines,
-  HorizontalGridLines,
-  XAxis,
-  YAxis,
-} from 'react-vis';
+import Chart from './components/chart';
 
 const App = () => {
   const [openData, setOpenData] = useState([]);
-  const [timestamp, setTimestamp] = useState([]);
+  const [crosshairValues, setCrosshairValues] = useState([]);
 
   useEffect(() => {
     getOpenData().then((data) => {
@@ -22,26 +14,42 @@ const App = () => {
     });
   }, []);
 
+  const dataArr = openData.map((data) => {
+    return { x: new Date(data.createdAt).getHours(), y: data.sensor2 };
+  });
+  console.log(dataArr);
+  const dataArr2 = openData.map((data) => {
+    return { x: new Date(data.createdAt).getHours(), y: data.sensor3 };
+  });
+
+  const onMouseLeave = () => setCrosshairValues([]);
+
+  const onNearestX = (value, { index }) => {
+    console.log('ind', index);
+    return setCrosshairValues([...crosshairValues, dataArr[index]]);
+  };
+  crosshairValues && console.log('cross', crosshairValues.x);
+
   return (
-    <div className='App'>
-      {timestamp && (
-        <XYPlot
-          height={500}
-          width={1000}
-          color='red'
-          strokeWidth='5'
-          xDomain={[1, 4]}
-          yDomain={[1, 300]}
-          xType='time'
-        >
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis />
-          <YAxis />
-          <LineSeries data={data} />
-        </XYPlot>
-      )}
-    </div>
+    <>
+      <div className='App'>
+        <Chart
+          datas={dataArr}
+          onMouseLeave={onMouseLeave}
+          onNearestX={onNearestX}
+          crosshairValues={crosshairValues}
+        />
+      </div>
+
+      <div className='App'>
+        <Chart
+          datas={dataArr2}
+          onMouseLeave={onMouseLeave}
+          onNearestX={onNearestX}
+          crosshairValues={crosshairValues}
+        />
+      </div>
+    </>
   );
 };
 
