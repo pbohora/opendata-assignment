@@ -10,6 +10,8 @@ const App = () => {
   const [openData, setOpenData] = useState([])
   const [selectedDate, setSelectedDate] = useState(new Date().getDate())
 
+  //fetch initial data from database
+
   useEffect(() => {
     getOpenData().then((data) => {
       // console.log(data)
@@ -17,14 +19,20 @@ const App = () => {
     })
   }, [])
 
+  //filter the data according to the data selected from the select option
+
   const filteredData = openData.filter((data) => {
     const date = new Date(data.createdAt).getDate()
     return date === selectedDate
   })
 
+  //set date accoring the select
+
   const handleDate = (e) => {
     setSelectedDate(Number(e.target.value))
   }
+
+  //change fetch data to an array of objects with property x and y for each sensor
 
   const restructureData = (sensor) => {
     return filteredData.map((data) => ({

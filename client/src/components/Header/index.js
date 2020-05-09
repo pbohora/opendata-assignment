@@ -5,11 +5,10 @@ import './Header.css'
 const Header = ({ handleDate, selectedDate }) => {
   const currentDate = new Date()
   const yesterday = currentDate.getDate() - 1
-  const yesterday1 = currentDate.getDate() - 2
+  const dayBeforeYesterday = currentDate.getDate() - 2
 
-  // console.log('sdss', yesterday1)
-  const dates = [currentDate.getDate(), yesterday, yesterday1]
-  // console.log(dates)
+  const dates = [currentDate.getDate(), yesterday, dayBeforeYesterday]
+
   return (
     <div className='header'>
       <label>

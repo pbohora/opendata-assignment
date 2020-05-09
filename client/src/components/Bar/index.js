@@ -13,38 +13,40 @@ import {
 import './Bar.css'
 
 const Bar = ({ data }) => {
+  const items = [
+    {
+      title: 'Sensor 1',
+      color: '#edde0e',
+      strokeWidth: 12,
+    },
+    {
+      title: 'Sensor 2',
+      color: '#03fcdf',
+      strokeWidth: 12,
+    },
+    {
+      title: 'Sensor 3',
+      color: '#ed0ed3',
+      strokeWidth: 12,
+    },
+    {
+      title: 'Sensor 4',
+      color: '#ed3e0e',
+      strokeWidth: 12,
+    },
+  ]
   return (
     <div className='bar_container'>
+      <DiscreteColorLegend orientation='horizontal' items={items} />
       <XYPlot xType='ordinal' width={800} height={500} xDistance={10}>
-        <DiscreteColorLegend
-          style={{ position: 'absolute', right: '0px', top: '10px' }}
-          orientation='vertical'
-          items={[
-            {
-              title: 'sensor1',
-              color: '#12939A',
-              strokeWidth: 12,
-            },
-            {
-              title: 'sensor2',
-              color: '#79C7E3',
-              strokeWidth: 12,
-            },
-            {
-              title: 'sensor3',
-              color: '#79C7E3',
-              strokeWidth: 12,
-            },
-          ]}
-        />
         <VerticalGridLines />
         <HorizontalGridLines />
         <XAxis />
         <YAxis />
-        <VerticalBarSeries data={data('sensor1')} />
-        <VerticalBarSeries data={data('sensor2')} />
-        <VerticalBarSeries data={data('sensor3')} />
-        <VerticalBarSeries data={data('sensor4')} />
+        <VerticalBarSeries data={data('sensor1')} color='#edde0e' />
+        <VerticalBarSeries data={data('sensor2')} color='#03fcdf' />
+        <VerticalBarSeries data={data('sensor3')} color='#ed0ed3' />
+        <VerticalBarSeries data={data('sensor4')} color='#ed3e0e' />
       </XYPlot>
     </div>
   )

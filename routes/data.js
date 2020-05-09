@@ -15,7 +15,7 @@ setInterval(async () => {
   } catch (error) {
     // console.log(error)
   }
-}, 36000000)
+}, 3600 * 1000)
 
 //get saved history data from database
 dataRouter.get('/', async (_req, res) => {
