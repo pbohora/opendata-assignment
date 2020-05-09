@@ -6,7 +6,8 @@ const service = require('../services/opendata')
 //store that data to mongodb and delete old data
 setInterval(async () => {
   var targetTime = new Date()
-  targetTime.setHours(targetTime.getDay() - 3)
+  targetTime.setDate(targetTime.getDate() - 3)
+  console.log(targetTime)
 
   try {
     await service.deleteOldData(targetTime) //delete old data from database
@@ -15,7 +16,7 @@ setInterval(async () => {
   } catch (error) {
     // console.log(error)
   }
-}, 3600 * 1000)
+}, 3600000)
 
 //get saved history data from database
 dataRouter.get('/', async (_req, res) => {
