@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import 'react-vis/dist/style.css';
+import React from 'react'
+import 'react-vis/dist/style.css'
 import {
   XYPlot,
   XAxis,
@@ -8,9 +8,9 @@ import {
   HorizontalGridLines,
   DiscreteColorLegend,
   VerticalBarSeries,
-} from 'react-vis';
+} from 'react-vis'
 
-import './Bar.css';
+import './Bar.css'
 
 const Bar = ({ data }) => {
   return (
@@ -47,6 +47,6 @@ const Bar = ({ data }) => {
         <VerticalBarSeries data={data('sensor4')} />
       </XYPlot>
     </div>
-  );
-};
-export default Bar;
+  )
+}
+export default Bar

@@ -1,7 +1,7 @@
-import React from 'react';
-import Chart from '../Chart/chart';
+import React from 'react'
+import Chart from '../Chart'
 
-import './LineChart.css';
+import './LineChart.css'
 
 const LineChart = ({ data }) => {
   return (
@@ -14,7 +14,7 @@ const LineChart = ({ data }) => {
 
       <Chart datas={data('sensor4')} color='yellow' sensor='senso4' />
     </dvi>
-  );
-};
+  )
+}
 
-export default LineChart;
+export default LineChart

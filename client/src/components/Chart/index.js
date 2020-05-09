@@ -1,5 +1,5 @@
-import React from 'react';
-import 'react-vis/dist/style.css';
+import React from 'react'
+import 'react-vis/dist/style.css'
 import {
   XYPlot,
   XAxis,
@@ -7,11 +7,19 @@ import {
   HorizontalGridLines,
   LineMarkSeries,
   DiscreteColorLegend,
-} from 'react-vis';
+  Crosshair,
+} from 'react-vis'
 
-import './Chart.css';
+import './Chart.css'
 
-const Chart = ({ datas, color, sensor }) => {
+const Chart = ({
+  datas,
+  color,
+  sensor,
+  crosshairValues,
+  onMouseLeave,
+  onNearestX,
+}) => {
   return (
     <div className='chart_container'>
       <DiscreteColorLegend
@@ -22,21 +30,31 @@ const Chart = ({ datas, color, sensor }) => {
             color: color,
             strokeWidth: 8,
           },
-          ,
         ]}
       />
-      <XYPlot xType='ordinal' width={600} height={300}>
+      <XYPlot
+        onMouseLeave={onMouseLeave}
+        xType='ordinal'
+        width={600}
+        height={300}
+      >
         <HorizontalGridLines />
         <XAxis title='Time' />
         <YAxis title='Sensor reading' />
         <LineMarkSeries
+          onNearestX={onNearestX}
           data={datas}
           style={{ stroke: color, strokeWidth: 3 }}
           curve={'curveMonotoneX'}
         />
+        <Crosshair values={crosshairValues}>
+          <div style={{ background: 'black' }}>
+            <h3>Values of crosshair:</h3>
+          </div>
+        </Crosshair>
       </XYPlot>
     </div>
-  );
-};
+  )
+}
 
-export default Chart;
+export default Chart

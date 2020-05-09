@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 const config = {
   entry: ['@babel/polyfill', './src/index.js'],
@@ -34,6 +34,6 @@ const config = {
       },
     ],
   },
-};
+}
 
-module.exports = config;
+module.exports = config
