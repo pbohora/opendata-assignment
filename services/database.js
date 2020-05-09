@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const config = require('../utils/config');
+const mongoose = require('mongoose')
+const config = require('../utils/config')
 
 const connectDb = (url = config.MONGODB_URI, opts = {}) => {
   return mongoose.connect(url, {
@@ -8,7 +8,7 @@ const connectDb = (url = config.MONGODB_URI, opts = {}) => {
     useCreateIndex: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-  });
-};
+  })
+}
 
-module.exports = connectDb;
+module.exports = connectDb

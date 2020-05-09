@@ -1,0 +1,20 @@
+.header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #211f1c;
+      margin: 8px;
+      color: antiquewhite;
+      border-radius: 6px;
+      height: 60px;
+      font-size: 24px;
+}
+
+.header_select {
+      color: antiquewhite;
+      font-size: 20px;
+      margin: 24px;
+      padding: 4px;
+      background-color: #333331;
+      height: 60px;
+}
