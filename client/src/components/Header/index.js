@@ -18,8 +18,8 @@ const Header = ({ handleDate, selectedDate }) => {
           value={selectedDate}
           onChange={handleDate}
         >
-          {dates.map((date, i) => (
-            <option key={date[i]} value={date}>
+          {dates.map((date, index) => (
+            <option key={index} value={date}>
               {date}/{currentDate.getMonth()}/{currentDate.getFullYear()}
             </option>
           ))}
