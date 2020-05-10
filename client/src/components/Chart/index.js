@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import 'react-vis/dist/style.css'
 import {
   XYPlot,
@@ -7,7 +7,7 @@ import {
   HorizontalGridLines,
   LineMarkSeries,
   DiscreteColorLegend,
-  Crosshair,
+  Hint,
 } from 'react-vis'
 
 import './Chart.css'
@@ -16,10 +16,9 @@ const Chart = ({
   datas,
   color,
   sensor,
-  crosshairValues,
-  onMouseLeave,
-  onNearestX,
 }) => {
+
+  const [hovercell ,setHovercell]=useState(null)
   return (
     <div className='chart_container'>
       <DiscreteColorLegend
@@ -32,26 +31,32 @@ const Chart = ({
           },
         ]}
       />
-      <XYPlot
-        onMouseLeave={onMouseLeave}
-        xType='ordinal'
+      <XYPlot 
+        xType='ordinal'   
         width={600}
         height={300}
       >
         <HorizontalGridLines />
-        <XAxis title='Time' />
+        <XAxis title='Time in 24 Hours' />
         <YAxis title='Sensor reading' />
         <LineMarkSeries
-          onNearestX={onNearestX}
+          onValueMouseOver={ v => {
+            setHovercell(v);
+            console.log(v)
+          }}
+          onValueMouseOut={v => setHovercell(null)}
           data={datas}
           style={{ stroke: color, strokeWidth: 3 }}
           curve={'curveMonotoneX'}
         />
-        <Crosshair values={crosshairValues}>
-          <div style={{ background: 'black' }}>
-            <h3>Values of crosshair:</h3>
-          </div>
-        </Crosshair>
+        {hovercell && (
+            <Hint value={hovercell}>
+              <div className="chart_hovercell">
+                <p>Time: {hovercell.x} Hours</p>
+                <p>Reading: {hovercell.y} </p>
+              </div>
+            </Hint>
+          )}
       </XYPlot>
     </div>
   )

@@ -5,7 +5,7 @@ import './LineChart.css'
 
 const LineChart = ({ data }) => {
   return (
-    <dvi className='linechart_container'>
+    <div className='linechart_container'>
       <Chart datas={data('sensor1')} color='#edde0e' sensor='Sensor 1' />
 
       <Chart datas={data('sensor2')} color='#03fcdf' sensor='Sensor 2' />
@@ -13,7 +13,7 @@ const LineChart = ({ data }) => {
       <Chart datas={data('sensor3')} color='#ed0ed3' sensor='Sensor 3' />
 
       <Chart datas={data('sensor4')} color='#ed3e0e' sensor='Sensor 4' />
-    </dvi>
+    </div>
   )
 }
 
