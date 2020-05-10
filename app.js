@@ -6,6 +6,8 @@ const dataRouter = require('./routes/data')
 
 app.use(cors())
 
+app.use(express.static('client/build'));
+
 app.use('/api/data', dataRouter)
 
 app.use(function (_req, res) {

@@ -8,7 +8,8 @@
     "watch": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "eslint .",
     "lint-fix": "eslint --fix --ext .js,.jsx .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "npm run build --prefix client"
   },
   "author": "pradip",
   "license": "ISC",
