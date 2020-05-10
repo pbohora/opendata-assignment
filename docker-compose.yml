@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+
+  open-data-db:
+    image: mongo
+    restart: always
+    container_name: open-data-db
+    ports:
+      - 27016:27016 
+    volumes:
+      - open-data-db:/data/db
+    networks: 
+      - open-data-network
+
+  open-data-app:
+    image: pradip/open-data-app:dev
+    build: 
+      context: .
+      target: dev
+    container_name: open-data-app
+    restart: always
+    volumes: 
+      - .:/app
+    ports:
+      - "3006:3006"
+      - "3000:3000"
+    depends_on:
+      - open-data-db
+    environment:
+      - MONGODB_URI=mongodb://open-data-db/open-data-db
+    networks: 
+      - open-data-network
+
+volumes: 
+  open-data-db:
+    name: open-data-db
+
+networks: 
+  open-data-network:
+    name: open-data-network

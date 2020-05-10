@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node index.js",
-    "watch": "cross-env NODE_ENV=development nodemon index.js",
+    "start": " node index.js",
+    "client": "npm start --prefix client", 
+    "watch": "nodemon index.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run watch\" \"npm run client\"",
     "lint": "eslint .",
     "lint-fix": "eslint --fix --ext .js,.jsx .",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,6 +23,7 @@
     "mongoose": "^5.9.12"
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.0.0",
     "eslint-plugin-react": "^7.19.0",
