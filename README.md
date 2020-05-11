@@ -50,11 +50,14 @@ form the root of the project run
 npm run watch 
 ```
 this will run the backend at `http://localhost:3006`
+
 To run the front end :
 ```
 cd client 
 npm start
 ``` 
+this will run the forntend at `http://localhost:3000`
+
 and for production
 ```
 npm run build
