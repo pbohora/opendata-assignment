@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": " node index.js",
-    "client": "npm run start --prefix client", 
+    "client": "npm run start --prefix client",
     "watch": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run watch\" \"npm run client\"",
     "lint": "eslint .",
