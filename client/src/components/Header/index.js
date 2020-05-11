@@ -4,6 +4,7 @@ import './Header.css'
 
 const Header = ({ handleDate, selectedDate }) => {
   const currentDate = new Date()
+  console.log(currentDate)
   const yesterday = currentDate.getDate() - 1
   const dayBeforeYesterday = currentDate.getDate() - 2
 
@@ -20,7 +21,7 @@ const Header = ({ handleDate, selectedDate }) => {
         >
           {dates.map((date, index) => (
             <option key={index} value={date}>
-              {date}/{currentDate.getMonth()}/{currentDate.getFullYear()}
+              {date}/{currentDate.getMonth() + 1}/{currentDate.getFullYear()}
             </option>
           ))}
         </select>
